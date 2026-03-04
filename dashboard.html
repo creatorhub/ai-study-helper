@@ -24,8 +24,6 @@ background:#f1f5f9;
 height:100vh;
 }
 
-/* Sidebar */
-
 .sidebar{
 width:240px;
 background:#2563eb;
@@ -45,8 +43,6 @@ margin:20px 0;
 color:white;
 text-decoration:none;
 }
-
-/* Main */
 
 .main{
 flex:1;
@@ -96,6 +92,11 @@ transition:0.2s;
 transform:scale(1.05);
 }
 
+.logout-btn{
+cursor:pointer;
+color:#ffdddd;
+}
+
 </style>
 
 </head>
@@ -113,7 +114,7 @@ transform:scale(1.05);
 <li><a href="homework.html">Homework Helper</a></li>
 <li><a href="planner.html">Study Planner</a></li>
 <li><a href="test.html">Mock Tests</a></li>
-<li><a href="index.html">Logout</a></li>
+<li><a class="logout-btn" onclick="logout()">Logout</a></li>
 
 </ul>
 
@@ -125,7 +126,7 @@ transform:scale(1.05);
 <div class="top">
 
 <h1>Dashboard</h1>
-<p>Welcome back 👋</p>
+<p id="welcomeText"></p>
 
 </div>
 
@@ -186,13 +187,24 @@ transform:scale(1.05);
 <script>
 
 function openPage(page){
-
 window.location.href = page;
-
 }
 
+function logout(){
+localStorage.removeItem("currentUser");
+window.location.href="login.html";
+}
 
 function loadDashboard(){
+
+let user = JSON.parse(localStorage.getItem("currentUser"));
+
+if(!user){
+window.location.href="login.html";
+return;
+}
+
+document.getElementById("welcomeText").innerText = "Welcome " + user.name + " 👋";
 
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
