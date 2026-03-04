@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Mock Test - AI Study Helper</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+display:flex;
+height:100vh;
+background:#f1f5f9;
+}
+
+/* Sidebar */
+
+.sidebar{
+width:240px;
+background:#2563eb;
+color:white;
+padding:30px;
+}
+
+.sidebar h2{
+margin-bottom:30px;
+}
+
+.sidebar ul{
+list-style:none;
+}
+
+.sidebar li{
+margin:20px 0;
+}
+
+.sidebar a{
+color:white;
+text-decoration:none;
+}
+
+/* Main */
+
+.main{
+flex:1;
+padding:40px;
+}
+
+select,input{
+width:100%;
+padding:12px;
+margin-bottom:15px;
+border-radius:8px;
+border:1px solid #ccc;
+}
+
+button{
+padding:12px 20px;
+border:none;
+background:#2563eb;
+color:white;
+border-radius:8px;
+cursor:pointer;
+}
+
+.quiz-box{
+margin-top:30px;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 5px 20px rgba(0,0,0,0.05);
+}
+
+.option{
+margin:10px 0;
+}
+
+.result{
+margin-top:20px;
+font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2>AI Study</h2>
+
+<ul>
+
+<li><a href="dashboard.html">Dashboard</a></li>
+
+<li><a href="notes.html">Notes Summarizer</a></li>
+
+<li><a href="homework.html">Homework Helper</a></li>
+
+<li><a href="planner.html">Study Planner</a></li>
+
+<li><a href="#">Mock Test</a></li>
+
+<li><a href="index.html">Logout</a></li>
+
+</ul>
+
+</div>
+
+
+<div class="main">
+
+<h1>Mock Test Generator</h1>
+
+<p style="margin:10px 0 20px 0;">
+Select subject and start a practice quiz.
+</p>
+
+<select>
+<option>Select Subject</option>
+<option>Math</option>
+<option>Science</option>
+<option>English</option>
+<option>History</option>
+</select>
+
+<input type="number" placeholder="Number of Questions">
+
+<button>Generate Test</button>
+
+<div class="quiz-box">
+
+<h3>Sample Question</h3>
+
+<p>What is 5 + 7 ?</p>
+
+<div class="option">
+<input type="radio" name="q1"> 10
+</div>
+
+<div class="option">
+<input type="radio" name="q1"> 12
+</div>
+
+<div class="option">
+<input type="radio" name="q1"> 14
+</div>
+
+<div class="option">
+<input type="radio" name="q1"> 15
+</div>
+
+<button style="margin-top:15px;">Submit Answer</button>
+
+<div class="result">
+
+Result will appear here.
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>
