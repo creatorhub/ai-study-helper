@@ -24,17 +24,11 @@ height:100vh;
 background:#f1f5f9;
 }
 
-/* Sidebar */
-
 .sidebar{
 width:240px;
 background:#2563eb;
 color:white;
 padding:30px;
-}
-
-.sidebar h2{
-margin-bottom:30px;
 }
 
 .sidebar ul{
@@ -50,19 +44,9 @@ color:white;
 text-decoration:none;
 }
 
-/* Main */
-
 .main{
 flex:1;
 padding:40px;
-}
-
-select,input{
-width:100%;
-padding:12px;
-margin-bottom:15px;
-border-radius:8px;
-border:1px solid #ccc;
 }
 
 button{
@@ -72,6 +56,7 @@ background:#2563eb;
 color:white;
 border-radius:8px;
 cursor:pointer;
+margin-top:10px;
 }
 
 .quiz-box{
@@ -89,6 +74,7 @@ margin:10px 0;
 .result{
 margin-top:20px;
 font-weight:bold;
+font-size:18px;
 }
 
 </style>
@@ -104,15 +90,10 @@ font-weight:bold;
 <ul>
 
 <li><a href="dashboard.html">Dashboard</a></li>
-
 <li><a href="notes.html">Notes Summarizer</a></li>
-
 <li><a href="homework.html">Homework Helper</a></li>
-
 <li><a href="planner.html">Study Planner</a></li>
-
 <li><a href="#">Mock Test</a></li>
-
 <li><a href="index.html">Logout</a></li>
 
 </ul>
@@ -122,57 +103,122 @@ font-weight:bold;
 
 <div class="main">
 
-<h1>Mock Test Generator</h1>
+<h1>Mock Test</h1>
 
-<p style="margin:10px 0 20px 0;">
-Select subject and start a practice quiz.
-</p>
+<button onclick="startQuiz()">Start Quiz</button>
 
-<select>
-<option>Select Subject</option>
-<option>Math</option>
-<option>Science</option>
-<option>English</option>
-<option>History</option>
-</select>
+<div class="quiz-box" id="quizBox" style="display:none;">
 
-<input type="number" placeholder="Number of Questions">
+<h3 id="question"></h3>
 
-<button>Generate Test</button>
+<div id="options"></div>
 
-<div class="quiz-box">
+<button onclick="nextQuestion()">Next</button>
 
-<h3>Sample Question</h3>
+<div class="result" id="result"></div>
 
-<p>What is 5 + 7 ?</p>
+</div>
 
+</div>
+
+
+<script>
+
+const questions = [
+
+{
+q:"What is 5 + 7 ?",
+options:["10","12","14","15"],
+answer:"12"
+},
+
+{
+q:"Capital of India?",
+options:["Delhi","Mumbai","Chennai","Kolkata"],
+answer:"Delhi"
+},
+
+{
+q:"5 x 3 = ?",
+options:["10","15","20","12"],
+answer:"15"
+}
+
+];
+
+let currentQuestion = 0;
+let score = 0;
+
+function startQuiz(){
+
+document.getElementById("quizBox").style.display="block";
+
+currentQuestion = 0;
+score = 0;
+
+loadQuestion();
+
+}
+
+function loadQuestion(){
+
+let q = questions[currentQuestion];
+
+document.getElementById("question").innerText = q.q;
+
+let optionsHTML="";
+
+q.options.forEach(opt =>{
+
+optionsHTML += `
 <div class="option">
-<input type="radio" name="q1"> 10
+<label>
+<input type="radio" name="answer" value="${opt}">
+${opt}
+</label>
 </div>
+`;
 
-<div class="option">
-<input type="radio" name="q1"> 12
-</div>
+});
 
-<div class="option">
-<input type="radio" name="q1"> 14
-</div>
+document.getElementById("options").innerHTML = optionsHTML;
 
-<div class="option">
-<input type="radio" name="q1"> 15
-</div>
+}
 
-<button style="margin-top:15px;">Submit Answer</button>
+function nextQuestion(){
 
-<div class="result">
+let selected = document.querySelector("input[name='answer']:checked");
 
-Result will appear here.
+if(!selected){
 
-</div>
+alert("Select an answer");
 
-</div>
+return;
 
-</div>
+}
+
+if(selected.value === questions[currentQuestion].answer){
+
+score++;
+
+}
+
+currentQuestion++;
+
+if(currentQuestion < questions.length){
+
+loadQuestion();
+
+}else{
+
+document.getElementById("quizBox").innerHTML =
+"<h2>Your Score: "+score+" / "+questions.length+"</h2>";
+
+}
+
+}
+
+</script>
 
 </body>
 </html>
