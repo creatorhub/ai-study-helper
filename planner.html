@@ -24,17 +24,11 @@ height:100vh;
 background:#f1f5f9;
 }
 
-/* Sidebar */
-
 .sidebar{
 width:240px;
 background:#2563eb;
 color:white;
 padding:30px;
-}
-
-.sidebar h2{
-margin-bottom:30px;
 }
 
 .sidebar ul{
@@ -49,8 +43,6 @@ margin:20px 0;
 color:white;
 text-decoration:none;
 }
-
-/* Main */
 
 .main{
 flex:1;
@@ -153,6 +145,9 @@ Add your study tasks and manage your learning schedule.
 
 <script>
 
+const API_URL="https://script.google.com/macros/s/AKfycbwvYz5b0hyz86tZxARb0eOdYFpxxpaZ4ODIkgQbf782iH2l70m1BGwRDlmrXXoWVQGQbg/exec";
+
+
 function loadTasks(){
 
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
@@ -188,6 +183,7 @@ list.appendChild(div);
 
 }
 
+
 function addTask(){
 
 let text=document.getElementById("taskInput").value;
@@ -200,19 +196,49 @@ return;
 
 let tasks=JSON.parse(localStorage.getItem("tasks"))||[];
 
-tasks.push({
+let newTask={
 text:text,
 date:date,
 done:false
-});
+};
+
+tasks.push(newTask);
 
 localStorage.setItem("tasks",JSON.stringify(tasks));
+
+saveTaskToDrive(newTask);
 
 document.getElementById("taskInput").value="";
 
 loadTasks();
 
 }
+
+
+function saveTaskToDrive(task){
+
+let user=JSON.parse(localStorage.getItem("currentUser"));
+
+fetch(API_URL,{
+
+method:"POST",
+
+body:JSON.stringify({
+
+type:"planner",
+
+data:{
+user:user ? user.email : "guest",
+task:task.text,
+date:task.date
+}
+
+})
+
+});
+
+}
+
 
 function deleteTask(index){
 
@@ -225,6 +251,7 @@ localStorage.setItem("tasks",JSON.stringify(tasks));
 loadTasks();
 
 }
+
 
 function completeTask(index){
 
