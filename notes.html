@@ -120,21 +120,42 @@ box-shadow:0 5px 20px rgba(0,0,0,0.05);
 Paste your notes below and generate a summary.
 </p>
 
-<textarea placeholder="Paste your notes here..."></textarea>
+<textarea id="notesInput" placeholder="Paste your notes here..."></textarea>
 
-<button>Generate Summary</button>
+<button onclick="summarizeNotes()">Generate Summary</button>
 
 <div class="summary-box">
 
 <h3>Summary</h3>
 
-<p>
+<p id="summaryOutput">
 Your summarized notes will appear here.
 </p>
 
 </div>
 
 </div>
+
+
+<script>
+
+function summarizeNotes(){
+
+let text = document.getElementById("notesInput").value;
+
+if(text === ""){
+alert("Please enter notes");
+return;
+}
+
+let sentences = text.split(".");
+let summary = sentences.slice(0,2).join(".") + ".";
+
+document.getElementById("summaryOutput").innerText = summary;
+
+}
+
+</script>
 
 </body>
 </html>
