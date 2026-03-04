@@ -128,35 +128,43 @@ The explanation will appear here.
 
 const API_URL="https://script.google.com/macros/s/AKfycbwvYz5b0hyz86tZxARb0eOdYFpxxpaZ4ODIkgQbf782iH2l70m1BGwRDlmrXXoWVQGQbg/exec";
 
-function getAnswer(){
+async function getAnswer(){
 
-let question = document.getElementById("questionInput").value.toLowerCase();
+let question=document.getElementById("questionInput").value;
 
-let answer = "";
-
-if(question.includes("2+2") || question.includes("2 + 2")){
-answer = "2 + 2 = 4. Addition means combining numbers together.";
+if(question===""){
+alert("Enter your question");
+return;
 }
 
-else if(question.includes("5+7") || question.includes("5 + 7")){
-answer = "5 + 7 = 12.";
-}
+document.getElementById("answerOutput").innerText="🤖 AI is thinking...";
 
-else if(question.includes("capital of india")){
-answer = "The capital of India is New Delhi.";
-}
+try{
 
-else if(question.includes("photosynthesis")){
-answer = "Photosynthesis is the process by which plants make food using sunlight, carbon dioxide, and water.";
-}
+const res=await fetch(API_URL,{
+method:"POST",
+body:JSON.stringify({
 
-else{
-answer = "This is a general explanation. In a future version this will connect to real AI.";
-}
+type:"ai",
+prompt:question
 
-document.getElementById("answerOutput").innerText = answer;
+})
+});
+
+const data=await res.json();
+
+let answer=data.answer;
+
+document.getElementById("answerOutput").innerText=answer;
 
 saveHomeworkToDrive(question,answer);
+
+}
+catch(error){
+
+document.getElementById("answerOutput").innerText="Error getting AI response.";
+
+}
 
 }
 
