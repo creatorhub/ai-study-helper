@@ -34,8 +34,6 @@ overflow:hidden;
 box-shadow:0 10px 30px rgba(0,0,0,0.1);
 }
 
-/* Left */
-
 .left{
 flex:1;
 background:#2563eb;
@@ -54,8 +52,6 @@ margin-bottom:20px;
 .left p{
 opacity:0.9;
 }
-
-/* Right */
 
 .right{
 flex:1;
@@ -123,19 +119,19 @@ Join AI Study Helper and start studying smarter with AI tools.
 
 <h2>Sign Up</h2>
 
-<form>
+<form onsubmit="return false;">
 
-<input type="text" placeholder="Full Name">
+<input type="text" id="name" placeholder="Full Name">
 
-<input type="email" placeholder="Email">
+<input type="email" id="email" placeholder="Email">
 
-<input type="password" placeholder="Password">
+<input type="password" id="password" placeholder="Password">
 
-<input type="password" placeholder="Confirm Password">
+<input type="password" id="confirm" placeholder="Confirm Password">
 
-<button>Create Account</button>
+<button type="button" onclick="registerUser()">Create Account</button>
 
-<button class="google">Sign up with Google</button>
+<button type="button" class="google">Sign up with Google</button>
 
 </form>
 
@@ -148,6 +144,56 @@ Join AI Study Helper and start studying smarter with AI tools.
 </div>
 
 </div>
+
+
+<script>
+
+const API_URL="https://script.google.com/macros/s/AKfycbwvYz5b0hyz86tZxARb0eOdYFpxxpaZ4ODIkgQbf782iH2l70m1BGwRDlmrXXoWVQGQbg/exec";
+
+function registerUser(){
+
+let name=document.getElementById("name").value;
+let email=document.getElementById("email").value;
+let password=document.getElementById("password").value;
+let confirm=document.getElementById("confirm").value;
+
+if(name===""||email===""||password===""){
+alert("Please fill all fields");
+return;
+}
+
+if(password!==confirm){
+alert("Passwords do not match");
+return;
+}
+
+fetch(API_URL,{
+method:"POST",
+body:JSON.stringify({
+
+type:"register",
+
+data:{
+name:name,
+email:email,
+password:password
+}
+
+})
+
+})
+.then(res=>res.json())
+.then(data=>{
+
+alert("Account created successfully");
+
+window.location.href="login.html";
+
+});
+
+}
+
+</script>
 
 </body>
 </html>
