@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Mock Test - AI Study Helper</title>
+<title>AI Mock Test - AI Study Helper</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -49,6 +49,14 @@ flex:1;
 padding:40px;
 }
 
+input{
+width:100%;
+padding:12px;
+border-radius:8px;
+border:1px solid #ccc;
+margin-bottom:15px;
+}
+
 button{
 padding:12px 20px;
 border:none;
@@ -56,7 +64,6 @@ background:#2563eb;
 color:white;
 border-radius:8px;
 cursor:pointer;
-margin-top:10px;
 }
 
 .quiz-box{
@@ -88,14 +95,12 @@ font-size:18px;
 <h2>AI Study</h2>
 
 <ul>
-
 <li><a href="dashboard.html">Dashboard</a></li>
 <li><a href="notes.html">Notes Summarizer</a></li>
 <li><a href="homework.html">Homework Helper</a></li>
 <li><a href="planner.html">Study Planner</a></li>
 <li><a href="#">Mock Test</a></li>
 <li><a href="index.html">Logout</a></li>
-
 </ul>
 
 </div>
@@ -103,9 +108,13 @@ font-size:18px;
 
 <div class="main">
 
-<h1>Mock Test</h1>
+<h1>AI Mock Test Generator</h1>
 
-<button onclick="startQuiz()">Start Quiz</button>
+<p>Enter a topic to generate quiz questions.</p>
+
+<input id="topicInput" placeholder="Example: Photosynthesis">
+
+<button onclick="generateQuiz()">Generate Quiz</button>
 
 <div class="quiz-box" id="quizBox" style="display:none;">
 
@@ -126,53 +135,60 @@ font-size:18px;
 
 const API_URL="https://script.google.com/macros/s/AKfycbwvYz5b0hyz86tZxARb0eOdYFpxxpaZ4ODIkgQbf782iH2l70m1BGwRDlmrXXoWVQGQbg/exec";
 
-const questions = [
+let questions=[];
+let currentQuestion=0;
+let score=0;
 
-{
-q:"What is 5 + 7 ?",
-options:["10","12","14","15"],
-answer:"12"
-},
+async function generateQuiz(){
 
-{
-q:"Capital of India?",
-options:["Delhi","Mumbai","Chennai","Kolkata"],
-answer:"Delhi"
-},
+let topic=document.getElementById("topicInput").value;
 
-{
-q:"5 x 3 = ?",
-options:["10","15","20","12"],
-answer:"15"
+if(topic===""){
+alert("Enter topic");
+return;
 }
 
-];
-
-let currentQuestion = 0;
-let score = 0;
-
-function startQuiz(){
-
 document.getElementById("quizBox").style.display="block";
+document.getElementById("question").innerText="🤖 Generating quiz...";
 
-currentQuestion = 0;
-score = 0;
+const res=await fetch(API_URL,{
+method:"POST",
+body:JSON.stringify({
+type:"ai",
+prompt:"Create 5 multiple choice questions about "+topic+" with options and correct answer in JSON format."
+})
+});
+
+const data=await res.json();
+
+try{
+
+questions=JSON.parse(data.answer);
+
+currentQuestion=0;
+score=0;
 
 loadQuestion();
+
+}catch{
+
+document.getElementById("question").innerText="AI response format error.";
+
+}
 
 }
 
 function loadQuestion(){
 
-let q = questions[currentQuestion];
+let q=questions[currentQuestion];
 
-document.getElementById("question").innerText = q.q;
+document.getElementById("question").innerText=q.question;
 
 let optionsHTML="";
 
-q.options.forEach(opt =>{
+q.options.forEach(opt=>{
 
-optionsHTML += `
+optionsHTML+=`
 <div class="option">
 <label>
 <input type="radio" name="answer" value="${opt}">
@@ -183,37 +199,32 @@ ${opt}
 
 });
 
-document.getElementById("options").innerHTML = optionsHTML;
+document.getElementById("options").innerHTML=optionsHTML;
 
 }
 
 function nextQuestion(){
 
-let selected = document.querySelector("input[name='answer']:checked");
+let selected=document.querySelector("input[name='answer']:checked");
 
 if(!selected){
-
-alert("Select an answer");
-
+alert("Select answer");
 return;
-
 }
 
-if(selected.value === questions[currentQuestion].answer){
-
+if(selected.value===questions[currentQuestion].answer){
 score++;
-
 }
 
 currentQuestion++;
 
-if(currentQuestion < questions.length){
+if(currentQuestion<questions.length){
 
 loadQuestion();
 
 }else{
 
-document.getElementById("quizBox").innerHTML =
+document.getElementById("quizBox").innerHTML=
 "<h2>Your Score: "+score+" / "+questions.length+"</h2>";
 
 saveQuizResult(score,questions.length);
