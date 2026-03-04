@@ -86,12 +86,14 @@ box-shadow:0 5px 20px rgba(0,0,0,0.05);
 <h2>AI Study</h2>
 
 <ul>
+
 <li><a href="dashboard.html">Dashboard</a></li>
 <li><a href="notes.html">Notes Summarizer</a></li>
 <li><a href="#">Homework Helper</a></li>
 <li><a href="planner.html">Study Planner</a></li>
 <li><a href="test.html">Mock Test</a></li>
 <li><a href="index.html">Logout</a></li>
+
 </ul>
 
 </div>
@@ -126,18 +128,18 @@ const API_URL="https://script.google.com/macros/s/AKfycbwvYz5b0hyz86tZxARb0eOdYF
 
 async function getAnswer(){
 
-let question=document.getElementById("questionInput").value.trim();
+let question=document.getElementById("questionInput").value;
 
 if(question===""){
-alert("Enter your question");
+alert("Enter question");
 return;
 }
 
-document.getElementById("answerOutput").innerText="🤖 AI is thinking...";
+document.getElementById("answerOutput").innerText="🤖 AI thinking...";
 
 try{
 
-const res=await fetch(API_URL,{
+const response=await fetch(API_URL,{
 method:"POST",
 headers:{
 "Content-Type":"application/json"
@@ -148,48 +150,15 @@ prompt:question
 })
 });
 
-const text=await res.text();
-const data=JSON.parse(text);
+const data=await response.json();
 
-let answer=data.answer || "No response from AI.";
+document.getElementById("answerOutput").innerText=data.answer;
 
-document.getElementById("answerOutput").innerText=answer;
+}catch(error){
 
-saveHomeworkToDrive(question,answer);
-
-}
-catch(error){
-
-console.error(error);
-
-document.getElementById("answerOutput").innerText="⚠️ Error getting AI response.";
+document.getElementById("answerOutput").innerText="⚠️ Error getting AI response";
 
 }
-
-}
-
-function saveHomeworkToDrive(question,answer){
-
-let user=JSON.parse(localStorage.getItem("currentUser"));
-
-fetch(API_URL,{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
-
-type:"homework",
-
-data:{
-user:user ? user.email : "guest",
-question:question,
-answer:answer
-}
-
-})
-
-});
 
 }
 
