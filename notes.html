@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Notes Summarizer - AI Study Helper</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+display:flex;
+height:100vh;
+background:#f1f5f9;
+}
+
+/* Sidebar */
+
+.sidebar{
+width:240px;
+background:#2563eb;
+color:white;
+padding:30px;
+}
+
+.sidebar h2{
+margin-bottom:30px;
+}
+
+.sidebar ul{
+list-style:none;
+}
+
+.sidebar li{
+margin:20px 0;
+}
+
+.sidebar a{
+color:white;
+text-decoration:none;
+}
+
+/* Main */
+
+.main{
+flex:1;
+padding:40px;
+}
+
+textarea{
+width:100%;
+height:180px;
+padding:15px;
+border-radius:10px;
+border:1px solid #ccc;
+margin-bottom:20px;
+}
+
+button{
+padding:12px 20px;
+border:none;
+background:#2563eb;
+color:white;
+border-radius:8px;
+cursor:pointer;
+}
+
+.summary-box{
+margin-top:30px;
+background:white;
+padding:20px;
+border-radius:10px;
+box-shadow:0 5px 20px rgba(0,0,0,0.05);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2>AI Study</h2>
+
+<ul>
+
+<li><a href="dashboard.html">Dashboard</a></li>
+
+<li><a href="#">Notes Summarizer</a></li>
+
+<li><a href="homework.html">Homework Helper</a></li>
+
+<li><a href="planner.html">Study Planner</a></li>
+
+<li><a href="test.html">Mock Test</a></li>
+
+<li><a href="index.html">Logout</a></li>
+
+</ul>
+
+</div>
+
+
+<div class="main">
+
+<h1>AI Notes Summarizer</h1>
+
+<p style="margin:10px 0 20px 0;">
+Paste your notes below and generate a summary.
+</p>
+
+<textarea placeholder="Paste your notes here..."></textarea>
+
+<button>Generate Summary</button>
+
+<div class="summary-box">
+
+<h3>Summary</h3>
+
+<p>
+Your summarized notes will appear here.
+</p>
+
+</div>
+
+</div>
+
+</body>
+</html>
