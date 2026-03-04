@@ -33,10 +33,6 @@ color:white;
 padding:30px;
 }
 
-.sidebar h2{
-margin-bottom:30px;
-}
-
 .sidebar ul{
 list-style:none;
 }
@@ -57,8 +53,6 @@ flex:1;
 padding:40px;
 }
 
-/* Top bar */
-
 .top{
 display:flex;
 justify-content:space-between;
@@ -78,12 +72,6 @@ border-radius:10px;
 box-shadow:0 5px 20px rgba(0,0,0,0.05);
 }
 
-.card h3{
-margin-bottom:10px;
-}
-
-/* Quick tools */
-
 .tools{
 margin-top:40px;
 }
@@ -101,6 +89,11 @@ border-radius:10px;
 text-align:center;
 cursor:pointer;
 box-shadow:0 5px 20px rgba(0,0,0,0.05);
+transition:0.2s;
+}
+
+.tool:hover{
+transform:scale(1.05);
 }
 
 </style>
@@ -116,15 +109,10 @@ box-shadow:0 5px 20px rgba(0,0,0,0.05);
 <ul>
 
 <li><a href="#">Dashboard</a></li>
-
 <li><a href="notes.html">Notes Summarizer</a></li>
-
 <li><a href="homework.html">Homework Helper</a></li>
-
 <li><a href="planner.html">Study Planner</a></li>
-
 <li><a href="test.html">Mock Tests</a></li>
-
 <li><a href="index.html">Logout</a></li>
 
 </ul>
@@ -137,42 +125,30 @@ box-shadow:0 5px 20px rgba(0,0,0,0.05);
 <div class="top">
 
 <h1>Dashboard</h1>
-
 <p>Welcome back 👋</p>
 
 </div>
 
-<!-- Stats -->
 
 <div class="card-grid">
 
 <div class="card">
-
 <h3>Study Hours</h3>
-
-<p>4 hours today</p>
-
+<p id="studyHours"></p>
 </div>
 
 <div class="card">
-
-<h3>Tasks Completed</h3>
-
-<p>6 tasks</p>
-
+<h3>Tasks Saved</h3>
+<p id="taskCount"></p>
 </div>
 
 <div class="card">
-
-<h3>Upcoming Exams</h3>
-
-<p>2 exams</p>
-
+<h3>Motivation</h3>
+<p>Keep learning 🚀</p>
 </div>
 
 </div>
 
-<!-- Tools -->
 
 <div class="tools">
 
@@ -180,36 +156,24 @@ box-shadow:0 5px 20px rgba(0,0,0,0.05);
 
 <div class="tool-grid">
 
-<div class="tool">
-
+<div class="tool" onclick="openPage('notes.html')">
 <h3>Notes Summarizer</h3>
-
 <p>Upload notes and get summary</p>
-
 </div>
 
-<div class="tool">
-
+<div class="tool" onclick="openPage('homework.html')">
 <h3>Homework Helper</h3>
-
 <p>Ask AI questions</p>
-
 </div>
 
-<div class="tool">
-
+<div class="tool" onclick="openPage('planner.html')">
 <h3>Study Planner</h3>
-
 <p>Create study schedule</p>
-
 </div>
 
-<div class="tool">
-
+<div class="tool" onclick="openPage('test.html')">
 <h3>Mock Test</h3>
-
 <p>Generate quizzes</p>
-
 </div>
 
 </div>
@@ -217,6 +181,32 @@ box-shadow:0 5px 20px rgba(0,0,0,0.05);
 </div>
 
 </div>
+
+
+<script>
+
+function openPage(page){
+
+window.location.href = page;
+
+}
+
+
+function loadDashboard(){
+
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+document.getElementById("taskCount").innerText = tasks.length + " tasks";
+
+let hours = Math.floor(Math.random()*4)+1;
+
+document.getElementById("studyHours").innerText = hours + " hours today";
+
+}
+
+window.onload = loadDashboard;
+
+</script>
 
 </body>
 </html>
