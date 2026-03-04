@@ -34,8 +34,6 @@ overflow:hidden;
 box-shadow:0 10px 30px rgba(0,0,0,0.1);
 }
 
-/* Left Side */
-
 .left{
 flex:1;
 background:#2563eb;
@@ -54,8 +52,6 @@ margin-bottom:20px;
 .left p{
 opacity:0.9;
 }
-
-/* Right Side */
 
 .right{
 flex:1;
@@ -124,15 +120,15 @@ Login to continue using AI Study Helper and boost your productivity.
 
 <h2>Login</h2>
 
-<form>
+<form onsubmit="return false;">
 
-<input type="email" placeholder="Email">
+<input type="email" id="email" placeholder="Email">
 
-<input type="password" placeholder="Password">
+<input type="password" id="password" placeholder="Password">
 
-<button>Login</button>
+<button type="button" onclick="loginUser()">Login</button>
 
-<button class="google">Login with Google</button>
+<button type="button" class="google">Login with Google</button>
 
 </form>
 
@@ -147,6 +143,45 @@ Login to continue using AI Study Helper and boost your productivity.
 </div>
 
 </div>
+
+
+<script>
+
+const API_URL="https://script.google.com/macros/s/AKfycbwvYz5b0hyz86tZxARb0eOdYFpxxpaZ4ODIkgQbf782iH2l70m1BGwRDlmrXXoWVQGQbg/exec";
+
+async function loginUser(){
+
+let email=document.getElementById("email").value;
+let password=document.getElementById("password").value;
+
+if(email===""||password===""){
+alert("Please enter email and password");
+return;
+}
+
+const res=await fetch(API_URL);
+const db=await res.json();
+
+const user=db.users.find(u=>u.email===email && u.password===password);
+
+if(user){
+
+localStorage.setItem("currentUser",JSON.stringify(user));
+
+alert("Login successful");
+
+window.location.href="dashboard.html";
+
+}
+else{
+
+alert("Invalid email or password");
+
+}
+
+}
+
+</script>
 
 </body>
 </html>
