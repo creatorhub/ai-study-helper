@@ -66,7 +66,7 @@ border:1px solid #ccc;
 }
 
 button{
-padding:12px 20px;
+padding:10px 15px;
 border:none;
 background:#2563eb;
 color:white;
@@ -84,6 +84,20 @@ padding:15px;
 border-radius:8px;
 margin-bottom:10px;
 box-shadow:0 5px 15px rgba(0,0,0,0.05);
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.task.done{
+text-decoration:line-through;
+opacity:0.6;
+}
+
+.task button{
+margin-left:8px;
+padding:6px 10px;
+font-size:12px;
 }
 
 </style>
@@ -99,15 +113,10 @@ box-shadow:0 5px 15px rgba(0,0,0,0.05);
 <ul>
 
 <li><a href="dashboard.html">Dashboard</a></li>
-
 <li><a href="notes.html">Notes Summarizer</a></li>
-
 <li><a href="homework.html">Homework Helper</a></li>
-
 <li><a href="#">Study Planner</a></li>
-
 <li><a href="test.html">Mock Test</a></li>
-
 <li><a href="index.html">Logout</a></li>
 
 </ul>
@@ -123,33 +132,115 @@ box-shadow:0 5px 15px rgba(0,0,0,0.05);
 Add your study tasks and manage your learning schedule.
 </p>
 
-<input type="text" placeholder="Study Task">
+<input id="taskInput" type="text" placeholder="Study Task">
 
-<input type="date">
+<input id="dateInput" type="date">
 
-<textarea placeholder="Notes or details"></textarea>
+<textarea id="noteInput" placeholder="Notes or details"></textarea>
 
-<button>Add Task</button>
+<button onclick="addTask()">Add Task</button>
 
 <div class="task-list">
 
 <h3 style="margin-bottom:15px;">Today's Tasks</h3>
 
-<div class="task">
-Math Revision - 5 PM
-</div>
-
-<div class="task">
-Science Chapter 3
-</div>
-
-<div class="task">
-English Grammar Practice
-</div>
+<div id="taskList"></div>
 
 </div>
 
 </div>
+
+
+<script>
+
+function loadTasks(){
+
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+let list = document.getElementById("taskList");
+
+list.innerHTML="";
+
+tasks.forEach((task,index)=>{
+
+let div = document.createElement("div");
+
+div.className="task";
+
+div.innerHTML=`
+<span>${task.text} - ${task.date}</span>
+
+<div>
+<button onclick="completeTask(${index})">✔</button>
+<button onclick="deleteTask(${index})">✖</button>
+</div>
+`;
+
+if(task.done){
+
+div.classList.add("done");
+
+}
+
+list.appendChild(div);
+
+});
+
+}
+
+function addTask(){
+
+let text=document.getElementById("taskInput").value;
+let date=document.getElementById("dateInput").value;
+
+if(text===""){
+alert("Enter a task");
+return;
+}
+
+let tasks=JSON.parse(localStorage.getItem("tasks"))||[];
+
+tasks.push({
+text:text,
+date:date,
+done:false
+});
+
+localStorage.setItem("tasks",JSON.stringify(tasks));
+
+document.getElementById("taskInput").value="";
+
+loadTasks();
+
+}
+
+function deleteTask(index){
+
+let tasks=JSON.parse(localStorage.getItem("tasks"));
+
+tasks.splice(index,1);
+
+localStorage.setItem("tasks",JSON.stringify(tasks));
+
+loadTasks();
+
+}
+
+function completeTask(index){
+
+let tasks=JSON.parse(localStorage.getItem("tasks"));
+
+tasks[index].done=!tasks[index].done;
+
+localStorage.setItem("tasks",JSON.stringify(tasks));
+
+loadTasks();
+
+}
+
+window.onload=loadTasks;
+
+</script>
 
 </body>
 </html>
