@@ -126,6 +126,8 @@ The explanation will appear here.
 
 <script>
 
+const API_URL="https://script.google.com/macros/s/AKfycbwvYz5b0hyz86tZxARb0eOdYFpxxpaZ4ODIkgQbf782iH2l70m1BGwRDlmrXXoWVQGQbg/exec";
+
 function getAnswer(){
 
 let question = document.getElementById("questionInput").value.toLowerCase();
@@ -153,6 +155,30 @@ answer = "This is a general explanation. In a future version this will connect t
 }
 
 document.getElementById("answerOutput").innerText = answer;
+
+saveHomeworkToDrive(question,answer);
+
+}
+
+function saveHomeworkToDrive(question,answer){
+
+let user=JSON.parse(localStorage.getItem("currentUser"));
+
+fetch(API_URL,{
+method:"POST",
+body:JSON.stringify({
+
+type:"homework",
+
+data:{
+user:user ? user.email : "guest",
+question:question,
+answer:answer
+}
+
+})
+
+});
 
 }
 
