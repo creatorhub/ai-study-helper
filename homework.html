@@ -24,17 +24,11 @@ height:100vh;
 background:#f1f5f9;
 }
 
-/* Sidebar */
-
 .sidebar{
 width:240px;
 background:#2563eb;
 color:white;
 padding:30px;
-}
-
-.sidebar h2{
-margin-bottom:30px;
 }
 
 .sidebar ul{
@@ -49,8 +43,6 @@ margin:20px 0;
 color:white;
 text-decoration:none;
 }
-
-/* Main */
 
 .main{
 flex:1;
@@ -96,15 +88,10 @@ box-shadow:0 5px 20px rgba(0,0,0,0.05);
 <ul>
 
 <li><a href="dashboard.html">Dashboard</a></li>
-
 <li><a href="notes.html">Notes Summarizer</a></li>
-
 <li><a href="#">Homework Helper</a></li>
-
 <li><a href="planner.html">Study Planner</a></li>
-
 <li><a href="test.html">Mock Test</a></li>
-
 <li><a href="index.html">Logout</a></li>
 
 </ul>
@@ -117,24 +104,59 @@ box-shadow:0 5px 20px rgba(0,0,0,0.05);
 <h1>AI Homework Helper</h1>
 
 <p style="margin:10px 0 20px 0;">
-Type your homework question and get an AI explanation.
+Type your homework question and get an explanation.
 </p>
 
-<textarea placeholder="Type your question here..."></textarea>
+<textarea id="questionInput" placeholder="Type your question here..."></textarea>
 
-<button>Get Answer</button>
+<button onclick="getAnswer()">Get Answer</button>
 
 <div class="answer-box">
 
-<h3>AI Answer</h3>
+<h3>Answer</h3>
 
-<p>
-The AI explanation will appear here.
+<p id="answerOutput">
+The explanation will appear here.
 </p>
 
 </div>
 
 </div>
+
+
+<script>
+
+function getAnswer(){
+
+let question = document.getElementById("questionInput").value.toLowerCase();
+
+let answer = "";
+
+if(question.includes("2+2") || question.includes("2 + 2")){
+answer = "2 + 2 = 4. Addition means combining numbers together.";
+}
+
+else if(question.includes("5+7") || question.includes("5 + 7")){
+answer = "5 + 7 = 12.";
+}
+
+else if(question.includes("capital of india")){
+answer = "The capital of India is New Delhi.";
+}
+
+else if(question.includes("photosynthesis")){
+answer = "Photosynthesis is the process by which plants make food using sunlight, carbon dioxide, and water.";
+}
+
+else{
+answer = "This is a general explanation. In a future version this will connect to real AI.";
+}
+
+document.getElementById("answerOutput").innerText = answer;
+
+}
+
+</script>
 
 </body>
 </html>
