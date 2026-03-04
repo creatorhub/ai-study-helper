@@ -124,6 +124,8 @@ font-size:18px;
 
 <script>
 
+const API_URL="https://script.google.com/macros/s/AKfycbwvYz5b0hyz86tZxARb0eOdYFpxxpaZ4ODIkgQbf782iH2l70m1BGwRDlmrXXoWVQGQbg/exec";
+
 const questions = [
 
 {
@@ -214,7 +216,31 @@ loadQuestion();
 document.getElementById("quizBox").innerHTML =
 "<h2>Your Score: "+score+" / "+questions.length+"</h2>";
 
+saveQuizResult(score,questions.length);
+
 }
+
+}
+
+function saveQuizResult(score,total){
+
+let user=JSON.parse(localStorage.getItem("currentUser"));
+
+fetch(API_URL,{
+method:"POST",
+body:JSON.stringify({
+
+type:"quiz",
+
+data:{
+user:user ? user.email : "guest",
+score:score,
+total:total
+}
+
+})
+
+});
 
 }
 
