@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI Study Helper</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#f8fafc;
+color:#111;
+}
+
+/* Navbar */
+
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 10%;
+background:white;
+box-shadow:0 2px 10px rgba(0,0,0,0.05);
+}
+
+.logo{
+font-size:24px;
+font-weight:700;
+color:#2563eb;
+}
+
+nav ul{
+display:flex;
+list-style:none;
+gap:30px;
+}
+
+nav a{
+text-decoration:none;
+color:#333;
+font-weight:500;
+}
+
+.login-btn{
+padding:10px 20px;
+background:#2563eb;
+color:white;
+border-radius:8px;
+}
+
+/* Hero */
+
+.hero{
+padding:120px 10%;
+text-align:center;
+}
+
+.hero h1{
+font-size:52px;
+margin-bottom:20px;
+}
+
+.hero p{
+font-size:18px;
+color:#555;
+margin-bottom:30px;
+}
+
+.hero button{
+padding:15px 30px;
+font-size:16px;
+border:none;
+background:#2563eb;
+color:white;
+border-radius:10px;
+cursor:pointer;
+}
+
+/* Features */
+
+.features{
+padding:100px 10%;
+background:white;
+}
+
+.features h2{
+text-align:center;
+margin-bottom:60px;
+font-size:36px;
+}
+
+.feature-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:30px;
+}
+
+.feature{
+background:#f1f5f9;
+padding:30px;
+border-radius:12px;
+}
+
+.feature h3{
+margin-bottom:10px;
+}
+
+/* How it works */
+
+.steps{
+padding:100px 10%;
+}
+
+.steps h2{
+text-align:center;
+margin-bottom:60px;
+font-size:36px;
+}
+
+.step-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:40px;
+text-align:center;
+}
+
+/* Testimonials */
+
+.testimonials{
+background:white;
+padding:100px 10%;
+}
+
+.testimonials h2{
+text-align:center;
+margin-bottom:60px;
+}
+
+.testimonial{
+background:#f1f5f9;
+padding:30px;
+border-radius:12px;
+}
+
+/* Pricing */
+
+.pricing{
+padding:100px 10%;
+}
+
+.price-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:40px;
+}
+
+.price-card{
+background:white;
+padding:40px;
+border-radius:12px;
+box-shadow:0 5px 20px rgba(0,0,0,0.05);
+text-align:center;
+}
+
+.price-card h3{
+margin-bottom:20px;
+}
+
+/* Footer */
+
+footer{
+background:#111;
+color:white;
+padding:40px 10%;
+text-align:center;
+margin-top:50px;
+}
+
+</style>
+</head>
+
+
+<body>
+
+<!-- Navbar -->
+
+<nav>
+
+<div class="logo">AI Study Helper</div>
+
+<ul>
+<li><a href="#">Features</a></li>
+<li><a href="#">How it Works</a></li>
+<li><a href="#">Pricing</a></li>
+<li><a href="login.html" class="login-btn">Login</a></li>
+</ul>
+
+</nav>
+
+<!-- Hero -->
+
+<section class="hero">
+
+<h1>Study Smarter with AI</h1>
+
+<p>
+Upload notes, solve homework, generate mock tests and create smart study plans with AI.
+</p>
+
+<button>Start Free</button>
+
+</section>
+
+<!-- Features -->
+
+<section class="features">
+
+<h2>Powerful AI Study Tools</h2>
+
+<div class="feature-grid">
+
+<div class="feature">
+<h3>AI Notes Summarizer</h3>
+<p>Upload your notes and get instant summaries and key concepts.</p>
+</div>
+
+<div class="feature">
+<h3>Homework Solver</h3>
+<p>Ask any question and get step-by-step explanations.</p>
+</div>
+
+<div class="feature">
+<h3>Study Planner</h3>
+<p>Create a personalized study schedule powered by AI.</p>
+</div>
+
+<div class="feature">
+<h3>Mock Test Generator</h3>
+<p>Generate unlimited quizzes and practice exams.</p>
+</div>
+
+</div>
+
+</section>
+
+<!-- How it Works -->
+
+<section class="steps">
+
+<h2>How It Works</h2>
+
+<div class="step-grid">
+
+<div>
+<h3>1. Upload Notes</h3>
+<p>Add your study material or questions.</p>
+</div>
+
+<div>
+<h3>2. AI Analysis</h3>
+<p>Our AI understands and processes your content.</p>
+</div>
+
+<div>
+<h3>3. Smart Learning</h3>
+<p>Get summaries, answers, and personalized study plans.</p>
+</div>
+
+</div>
+
+</section>
+
+<!-- Testimonials -->
+
+<section class="testimonials">
+
+<h2>Students Love AI Study Helper</h2>
+
+<div class="feature-grid">
+
+<div class="testimonial">
+<p>"This tool saved me hours of study time!"</p>
+<strong>- Rahul</strong>
+</div>
+
+<div class="testimonial">
+<p>"AI explanations are better than my textbooks."</p>
+<strong>- Priya</strong>
+</div>
+
+<div class="testimonial">
+<p>"Perfect for exam preparation."</p>
+<strong>- Aman</strong>
+</div>
+
+</div>
+
+</section>
+
+<!-- Pricing -->
+
+<section class="pricing">
+
+<h2 style="text-align:center;margin-bottom:50px;">Pricing</h2>
+
+<div class="price-grid">
+
+<div class="price-card">
+
+<h3>Free Plan</h3>
+
+<p>10 AI questions/day</p>
+<p>Basic notes summary</p>
+<p>Limited mock tests</p>
+
+<button style="margin-top:20px;padding:10px 20px;background:#2563eb;color:white;border:none;border-radius:8px;">
+Start Free
+</button>
+
+</div>
+
+<div class="price-card">
+
+<h3>Pro Plan</h3>
+
+<p>Unlimited AI questions</p>
+<p>Advanced summaries</p>
+<p>Unlimited mock tests</p>
+
+<button style="margin-top:20px;padding:10px 20px;background:#2563eb;color:white;border:none;border-radius:8px;">
+Upgrade
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+<footer>
+
+<p>© 2026 AI Study Helper. All rights reserved.</p>
+
+</footer>
+
+</body>
+</html>
