@@ -24,17 +24,11 @@ height:100vh;
 background:#f1f5f9;
 }
 
-/* Sidebar */
-
 .sidebar{
 width:240px;
 background:#2563eb;
 color:white;
 padding:30px;
-}
-
-.sidebar h2{
-margin-bottom:30px;
 }
 
 .sidebar ul{
@@ -49,8 +43,6 @@ margin:20px 0;
 color:white;
 text-decoration:none;
 }
-
-/* Main */
 
 .main{
 flex:1;
@@ -96,15 +88,10 @@ box-shadow:0 5px 20px rgba(0,0,0,0.05);
 <ul>
 
 <li><a href="dashboard.html">Dashboard</a></li>
-
 <li><a href="#">Notes Summarizer</a></li>
-
 <li><a href="homework.html">Homework Helper</a></li>
-
 <li><a href="planner.html">Study Planner</a></li>
-
 <li><a href="test.html">Mock Test</a></li>
-
 <li><a href="index.html">Logout</a></li>
 
 </ul>
@@ -139,6 +126,8 @@ Your summarized notes will appear here.
 
 <script>
 
+const API_URL="https://script.google.com/macros/s/AKfycbwvYz5b0hyz86tZxARb0eOdYFpxxpaZ4ODIkgQbf782iH2l70m1BGwRDlmrXXoWVQGQbg/exec";
+
 function summarizeNotes(){
 
 let text = document.getElementById("notesInput").value;
@@ -152,6 +141,30 @@ let sentences = text.split(".");
 let summary = sentences.slice(0,2).join(".") + ".";
 
 document.getElementById("summaryOutput").innerText = summary;
+
+saveNotesToDrive(text,summary);
+
+}
+
+function saveNotesToDrive(original,summary){
+
+let user=JSON.parse(localStorage.getItem("currentUser"));
+
+fetch(API_URL,{
+method:"POST",
+body:JSON.stringify({
+
+type:"notes",
+
+data:{
+user:user ? user.email : "guest",
+original:original,
+summary:summary
+}
+
+})
+
+});
 
 }
 
