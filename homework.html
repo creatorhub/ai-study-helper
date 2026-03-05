@@ -86,17 +86,16 @@ box-shadow:0 5px 20px rgba(0,0,0,0.05);
 <h2>AI Study</h2>
 
 <ul>
-
 <li><a href="dashboard.html">Dashboard</a></li>
 <li><a href="notes.html">Notes Summarizer</a></li>
 <li><a href="#">Homework Helper</a></li>
 <li><a href="planner.html">Study Planner</a></li>
 <li><a href="test.html">Mock Test</a></li>
 <li><a href="index.html">Logout</a></li>
-
 </ul>
 
 </div>
+
 
 <div class="main">
 
@@ -122,16 +121,20 @@ The explanation will appear here.
 
 </div>
 
+
 <script>
+
+/* API URL */
 
 const API_URL="https://script.google.com/macros/s/AKfycbwvYz5b0hyz86tZxARb0eOdYFpxxpaZ4ODIkgQbf782iH2l70m1BGwRDlmrXXoWVQGQbg/exec";
 
+
 async function getAnswer(){
 
-let question=document.getElementById("questionInput").value;
+const question=document.getElementById("questionInput").value.trim();
 
-if(question===""){
-alert("Enter question");
+if(!question){
+alert("Please enter a question");
 return;
 }
 
@@ -150,13 +153,27 @@ prompt:question
 })
 });
 
-const data=await response.json();
+/* response text */
+
+const text=await response.text();
+
+const data=JSON.parse(text);
+
+if(data.answer){
 
 document.getElementById("answerOutput").innerText=data.answer;
 
+}else{
+
+document.getElementById("answerOutput").innerText="⚠️ AI response not received";
+
+}
+
 }catch(error){
 
-document.getElementById("answerOutput").innerText="⚠️ Error getting AI response";
+console.error(error);
+
+document.getElementById("answerOutput").innerText="⚠️ Error connecting to AI API";
 
 }
 
