@@ -124,7 +124,7 @@ The explanation will appear here.
 
 <script>
 
-const API_URL="https://script.google.com/macros/s/AKfycbwvYz5b0hyz86tZxARb0eOdYFpxxpaZ4ODIkgQbf782iH2l70m1BGwRDlmrXXoWVQGQbg/exec";
+const API_URL="https://script.google.com/macros/s/AKfycbwZsTGdy1IWWjeG6bMPg_W5EgCGFh65RHywDN02I5eQd5z7DsHcqORnXVSKcb2DDoBrGQ/exec";
 
 async function getAnswer(){
 
@@ -145,13 +145,21 @@ const response = await fetch(url);
 
 const data = await response.json();
 
-document.getElementById("answerOutput").innerText=data.answer || "No AI response.";
+if(data.answer){
+
+document.getElementById("answerOutput").innerText=data.answer;
+
+}else{
+
+document.getElementById("answerOutput").innerText="AI did not respond.";
+
+}
 
 }catch(err){
 
 console.log(err);
 
-document.getElementById("answerOutput").innerText="⚠️ AI API connection error.";
+document.getElementById("answerOutput").innerText="⚠️ Error connecting to AI API";
 
 }
 
