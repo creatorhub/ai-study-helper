@@ -124,10 +124,7 @@ The explanation will appear here.
 
 <script>
 
-/* API URL */
-
 const API_URL="https://script.google.com/macros/s/AKfycbwvYz5b0hyz86tZxARb0eOdYFpxxpaZ4ODIkgQbf782iH2l70m1BGwRDlmrXXoWVQGQbg/exec";
-
 
 async function getAnswer(){
 
@@ -142,38 +139,19 @@ document.getElementById("answerOutput").innerText="🤖 AI thinking...";
 
 try{
 
-const response=await fetch(API_URL,{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
-type:"ai",
-prompt:question
-})
-});
+const url = API_URL + "?type=ai&prompt=" + encodeURIComponent(question);
 
-/* response text */
+const response = await fetch(url);
 
-const text=await response.text();
+const data = await response.json();
 
-const data=JSON.parse(text);
+document.getElementById("answerOutput").innerText=data.answer || "No AI response.";
 
-if(data.answer){
+}catch(err){
 
-document.getElementById("answerOutput").innerText=data.answer;
+console.log(err);
 
-}else{
-
-document.getElementById("answerOutput").innerText="⚠️ AI response not received";
-
-}
-
-}catch(error){
-
-console.error(error);
-
-document.getElementById("answerOutput").innerText="⚠️ Error connecting to AI API";
+document.getElementById("answerOutput").innerText="⚠️ AI API connection error.";
 
 }
 
